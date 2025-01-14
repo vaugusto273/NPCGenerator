@@ -1,34 +1,82 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const Races = ['Random', 'Human', 'Elf', 'Dwarf', 'Gnome'];
-    const Gender = ['Random', 'Male', 'Female'];
-    const Aligment = ['Random'];
-    const Occupation = {
-        'Class': [
-            'Random', 'Paladin', 'Ranger'
-        ],
-        'Profission': [
-            'Random','Blacksmith','Alchemist'
-        ]
+    const NPCSheet = {
+        'Races': ['Random', 'Human', 'Elf', 'Dwarf', 'Gnome'],
+        'Gender': ['Random', 'Male', 'Female'],
+        'Aligment':['Random'],
+        'Occupation':{
+            'Class': ['Random', 'Paladin', 'Ranger'],
+            'Profession': ['Random', 'Blacksmith', 'Alchemist']
+        }
     }
-    let Element = document.getElementById('Races');
-    Races.forEach(function(Races) {
-        const CreateOption = document.createElement('option');
-        CreateOption.value = Races;
-        CreateOption.text = Races;
-        Element.appendChild(CreateOption);
-    });
-    Element = document.getElementById('Gender');
-    Gender.forEach(function(Gender){
-        const CreateOption = document.createElement('option');
-        CreateOption.value = Gender;
-        CreateOption.text = Gender;
-        Element.appendChild(CreateOption);
-    })
-    Element = document.getElementById('Aligment');
-    Aligment.forEach(function(Aligment){
-        const CreateOption = document.createElement('option');
-        CreateOption.value = Aligment;
-        CreateOption.text = Aligment;
-        Element.appendChild(CreateOption);
+    function PopulateOptions(Element){
+        const ElementID = document.getElementById(Element);
+        const option = NPCSheet[Element]
+        ElementID.innerHTML = '';
+        
+        option.forEach(function(option){
+            const CreateOption = document.createElement('option');
+            CreateOption.value = option;
+            CreateOption.text = option;
+            ElementID.appendChild(CreateOption);
+        })
+    }
+    function PopulateClassOrProf(Element){
+        const ElementID = document.getElementById(Element);
+        const OccupationSelected = NPCSheet.Occupation[Element]
+        ElementID.innerHTML = '';
+        
+        OccupationSelected.forEach(function(OccupationSelected){
+            const CreateOption = document.createElement('option');
+            CreateOption.value = OccupationSelected;
+            CreateOption.text = OccupationSelected;
+            ElementID.appendChild(CreateOption);
+        })
+    }
+    /*function PopulateClassOrProf(OccupationVar){
+        OccupationVar.forEach(function(option){
+            const CreateOption = document.createElement('option');
+            CreateOption.value = option
+            CreateOption.text = option
+
+        })
+    }*/
+    PopulateOptions('Races');
+    PopulateOptions('Gender');
+    PopulateOptions('Aligment');
+
+    const occupationSelect = document.getElementById('Occupation');
+    occupationSelect.addEventListener('change', function(){
+        const selectedValue = occupationSelect.value;
+        const FormGet = document.getElementById('NPCGen');
+        if (selectedValue != 'Random'){
+            const OccupationLabel = document.createElement('label');
+            const OccupationOption = document.createElement('select');
+            
+            if(selectedValue == 'Class'){
+                OccupationLabel.for = 'Class';
+                OccupationLabel.innerHTML = 'Class';
+                OccupationOption.id = 'Class';
+                if (document.getElementById('Class') == null && document.getElementById('Profession') == null){
+                    FormGet.appendChild(document.createElement('br'))
+                    FormGet.appendChild(OccupationLabel);
+                    FormGet.appendChild(document.createElement('br'))
+                    FormGet.appendChild(OccupationOption);
+                    PopulateClassOrProf('Class')
+                }
+
+            }
+            else{
+                OccupationLabel.for = 'Profession'
+                OccupationLabel.innerHTML = 'Profession'
+                OccupationOption.id = 'Profession';
+                if (document.getElementById('Profession') == null && document.getElementById('Class') == null){
+                    FormGet.appendChild(document.createElement('br'))
+                    FormGet.appendChild(OccupationLabel);
+                    FormGet.appendChild(document.createElement('br'))
+                    FormGet.appendChild(OccupationOption);
+                    PopulateClassOrProf('Profession')
+                }
+        } 
+        }
     })
 });
