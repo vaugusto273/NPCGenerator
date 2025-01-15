@@ -1,13 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     const NPCSheet = {
-        'Races': ['Random', 'Human', 'Elf', 'Dwarf', 'Gnome'],
+        'Races': [
+            'Random', 'Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Half-Orc', 'Halfling', 'Human', 'Tiefling',
+            'Aarakocra', 'Genasi', 'Goliath', 'Aasimar', 'Bugbear', 'Firbolg', 'Goblin', 'Hobgoblin', 'Kenku', 'Kobold',
+            'Lizardfolk', 'Orc', 'Tabaxi', 'Triton', 'Yuan-ti Pureblood', 'Feral Tiefling', 'Tortle', 'Changeling',
+            'Kalashtar', 'Shifter', 'Warforged', 'Gith', 'Centaur', 'Loxodon', 'Minotaur', 'Simic Hybrid', 'Vedalken',
+            'Verdan', 'Locathah', 'Grung'
+        ],
         'Gender': ['Random', 'Male', 'Female'],
-        'Aligment':['Random'],
-        'Occupation':{
-            'Class': ['Random', 'Paladin', 'Ranger'],
-            'Profession': ['Random', 'Blacksmith', 'Alchemist']
+        'Aligment': [
+            'Random', 'Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral',
+            'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'
+        ],
+        'Occupation': {
+            'Class': [
+                'Random', 'Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 
+                'Sorcerer', 'Warlock', 'Wizard', 'Artificer'
+            ],
+            'Profession': [
+                'Random', 'Alchemist', 'Blacksmith', 'Brewer', 'Carpenter', 'Cartographer', 'Cook', 'Jeweler', 'Leatherworker',
+                'Mason', 'Painter', 'Potter', 'Scribe', 'Shipwright', 'Smith', 'Tinker', 'Weaver', 'Woodcarver'
+            ]
         }
-    }
+    };
     function PopulateOptions(Element){
         const ElementID = document.getElementById(Element);
         const option = NPCSheet[Element]
