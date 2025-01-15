@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const occupationSelect = document.getElementById('Occupation');
     occupationSelect.addEventListener('change', function(){
+        const elementsToRemove = document.getElementsByClassName('Occupations');
+        while (elementsToRemove.length > 0){
+            elementsToRemove[0].parentNode.removeChild(elementsToRemove[0]);
+        }
         const selectedValue = occupationSelect.value;
         const FormGet = document.getElementById('NPCGen');
         if (selectedValue != 'Random'){
@@ -55,28 +59,44 @@ document.addEventListener('DOMContentLoaded', function() {
             if(selectedValue == 'Class'){
                 OccupationLabel.for = 'Class';
                 OccupationLabel.innerHTML = 'Class';
+                OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Class';
-                if (document.getElementById('Class') == null && document.getElementById('Profession') == null){
-                    FormGet.appendChild(document.createElement('br'))
-                    FormGet.appendChild(OccupationLabel);
-                    FormGet.appendChild(document.createElement('br'))
-                    FormGet.appendChild(OccupationOption);
-                    PopulateClassOrProf('Class')
-                }
+                OccupationOption.className = 'Occupations'
+                FormGet.appendChild((() => {
+                    const br = document.createElement('br');
+                    br.className = 'Occupations';
+                    return br;
+                })());
+                FormGet.appendChild(OccupationLabel);
+                FormGet.appendChild((() => {
+                    const br = document.createElement('br');
+                    br.className = 'Occupations';
+                    return br;
+                })());
+                FormGet.appendChild(OccupationOption);
+                PopulateClassOrProf('Class')
 
             }
             else{
                 OccupationLabel.for = 'Profession'
                 OccupationLabel.innerHTML = 'Profession'
+                OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Profession';
-                if (document.getElementById('Profession') == null && document.getElementById('Class') == null){
-                    FormGet.appendChild(document.createElement('br'))
-                    FormGet.appendChild(OccupationLabel);
-                    FormGet.appendChild(document.createElement('br'))
-                    FormGet.appendChild(OccupationOption);
-                    PopulateClassOrProf('Profession')
-                }
-        } 
-        }
-    })
-});
+                OccupationOption.className = 'Occupations'
+                FormGet.appendChild((() => {
+                    const br = document.createElement('br');
+                    br.className = 'Occupations';
+                    return br;
+                })());
+                FormGet.appendChild(OccupationLabel);
+                FormGet.appendChild((() => {
+                    const br = document.createElement('br');
+                    br.className = 'Occupations';
+                    return br;
+                })());
+                FormGet.appendChild(OccupationOption);
+                PopulateClassOrProf('Profession')
+                } 
+            }
+        })
+    });
