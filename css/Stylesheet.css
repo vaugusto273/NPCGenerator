@@ -1,0 +1,6 @@
+form#NPCGen label,form#NPCGen select{
+    display: block;
+}
+form#NPCGen label.disabled,form#NPCGen select.disabled{
+    display: none;
+}
