@@ -47,14 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             ElementID.appendChild(CreateOption);
         })
     }
-    /*function PopulateClassOrProf(OccupationVar){
-        OccupationVar.forEach(function(option){
-            const CreateOption = document.createElement('option');
-            CreateOption.value = option
-            CreateOption.text = option
-
-        })
-    }*/
     PopulateOptions('Races');
     PopulateOptions('Gender');
     PopulateOptions('Aligment');
@@ -77,17 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Class';
                 OccupationOption.className = 'Occupations'
-                FormGet.appendChild((() => {
-                    const br = document.createElement('br');
-                    br.className = 'Occupations';
-                    return br;
-                })());
-                FormGet.appendChild(OccupationLabel);
-                FormGet.appendChild((() => {
-                    const br = document.createElement('br');
-                    br.className = 'Occupations';
-                    return br;
-                })());
                 FormGet.appendChild(OccupationOption);
                 PopulateClassOrProf('Class')
 
@@ -98,17 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Profession';
                 OccupationOption.className = 'Occupations'
-                FormGet.appendChild((() => {
-                    const br = document.createElement('br');
-                    br.className = 'Occupations';
-                    return br;
-                })());
-                FormGet.appendChild(OccupationLabel);
-                FormGet.appendChild((() => {
-                    const br = document.createElement('br');
-                    br.className = 'Occupations';
-                    return br;
-                })());
                 FormGet.appendChild(OccupationOption);
                 PopulateClassOrProf('Profession')
                 } 
