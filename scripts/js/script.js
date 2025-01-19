@@ -1,13 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
     const NPCSheet = {
         'Races': [
-            'Random', 'Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Half-Orc', 'Halfling', 'Human', 'Tiefling',
-            'Aarakocra', 'Genasi', 'Goliath', 'Aasimar', 'Bugbear', 'Firbolg', 'Goblin', 'Hobgoblin', 'Kenku', 'Kobold',
-            'Lizardfolk', 'Orc', 'Tabaxi', 'Triton', 'Yuan-ti Pureblood', 'Feral Tiefling', 'Tortle', 'Changeling',
-            'Kalashtar', 'Shifter', 'Warforged', 'Gith', 'Centaur', 'Loxodon', 'Minotaur', 'Simic Hybrid', 'Vedalken',
-            'Verdan', 'Locathah', 'Grung'
+            'Random',
+            'Aarakocra',
+            {
+                name: 'Aasimar',
+                subraces: ['Protector', 'Scourge', 'Fallen']
+            },
+            'Bugbear',
+            'Centaur',
+            'Changeling',
+            {
+                name: 'Dragonborn',
+                subraces: [
+                    {
+                        name: 'Gem',
+                        subraces: ['Amethyst', 'Crystal', 'Emerald', 'Sapphire', 'Topaz']
+                    },
+                    {
+                        name: 'Metalic',
+                        subraces: ['Brass', 'Bronze', 'Copper', 'Gold', 'Silver']
+                    },
+                    {
+                        name: 'Chromatic',
+                        subraces: ['Black', 'Blue', 'Green', 'Red', 'White']
+                    }
+                ]
+            },
+            {
+                name: 'Dwarf',
+                subraces: ['Hill Dwarf', 'Mountain Dwarf', 'Duergar']
+            },
+            {
+                name: 'Elf',
+                subraces: ['High Elf', 'Wood Elf', 'Drow', 'Eladrin', 'Sea Elf', 'Shadar-Kai']
+            },
+            'Feral Tiefling',
+            'Firbolg',
+            'Genasi',
+            {
+                name: 'Genasi',
+                subraces: ['Air Genasi', 'Earth Genasi', 'Fire Genasi', 'Water Genasi']
+            },
+            'Gith',
+            {
+                name: 'Gith',
+                subraces: ['Githyanki', 'Githzerai']
+            },
+            'Gnome',
+            {
+                name: 'Gnome',
+                subraces: ['Forest Gnome', 'Rock Gnome', 'Deep Gnome']
+            },
+            'Goblin',
+            'Goliath',
+            'Grung',
+            'Half-Elf',
+            'Half-Orc',
+            {
+                name: 'Halfling',
+                subraces: ['Lightfoot', 'Stout', 'Ghostwise']
+            },
+            'Hobgoblin',
+            'Human',
+            'Kalashtar',
+            'Kenku',
+            'Kobold',
+            'Locathah',
+            'Loxodon',
+            'Lizardfolk',
+            'Minotaur',
+            'Orc',
+            'Shifter',
+            'Simic Hybrid',
+            'Tabaxi',
+            'Tiefling',
+            {
+                name: 'Tiefling',
+                subraces: ['Asmodeus', 'Baalzebul', 'Dispater', 'Fierna', 'Glasya', 'Levistus', 'Mammon', 'Mephistopheles', 'Zariel']
+            },
+            'Tortle',
+            'Triton',
+            'Vedalken',
+            'Verdan',
+            'Warforged',
+            'Yuan-ti Pureblood'
         ],
-        'Gender': ['Random', 'Male', 'Female'],
+        'Gender': ['Random', 'Male', 'Female', 'Non-Binary', 'Genderfluid', 'Agender'],
         'Aligment': [
             'Random', 'Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral',
             'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'
@@ -15,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'Occupation': {
             'Class': [
                 'Random', 'Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 
-                'Sorcerer', 'Warlock', 'Wizard', 'Artificer'
+                'Sorcerer', 'Warlock', 'Wizard', 'Artificer', 'Blood Hunter'
             ],
             'Profession': [
                 'Random', 'Alchemist', 'Blacksmith', 'Brewer', 'Carpenter', 'Cartographer', 'Cook', 'Jeweler', 'Leatherworker',
@@ -25,26 +104,45 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     function PopulateOptions(Element){
         const ElementID = document.getElementById(Element);
-        const option = NPCSheet[Element]
+        let option;
+        if (Element == 'Class' || Element == 'Profession'){
+            option = NPCSheet.Occupation[Element];            
+        }else{
+            option = NPCSheet[Element];
+
+        }
         ElementID.innerHTML = '';
         
         option.forEach(function(option){
-            const CreateOption = document.createElement('option');
-            CreateOption.value = option;
-            CreateOption.text = option;
-            ElementID.appendChild(CreateOption);
-        })
-    }
-    function PopulateClassOrProf(Element){
-        const ElementID = document.getElementById(Element);
-        const OccupationSelected = NPCSheet.Occupation[Element]
-        ElementID.innerHTML = '';
-        
-        OccupationSelected.forEach(function(OccupationSelected){
-            const CreateOption = document.createElement('option');
-            CreateOption.value = OccupationSelected;
-            CreateOption.text = OccupationSelected;
-            ElementID.appendChild(CreateOption);
+            if (typeof option === 'string'){
+                const CreateOption = document.createElement('option');
+                
+                CreateOption.value = option;
+                CreateOption.text = option;
+                ElementID.appendChild(CreateOption);
+            }
+            else if (typeof option === 'object'){
+                const CreateOption = document.createElement('option');
+                CreateOption.value = option.name;
+                CreateOption.text = option.name;
+                ElementID.appendChild(CreateOption);
+                if(option.subraces){
+                    option.subraces.forEach(function(subrace){
+                        const CreateSubOption = document.createElement('option');
+                        CreateSubOption.value = `${option.name} - ${subrace.name || subrace}`;
+                        CreateSubOption.text = `${option.name} - ${subrace.name || subrace}`;
+                        ElementID.appendChild(CreateSubOption);
+                    if(subrace.subraces){
+                        subrace.subraces.forEach(function(subSubrace){
+                            const CreateSubSubOption = document.createElement('option');
+                            CreateSubSubOption.value = `- ${option.name} ${subSubrace}`;
+                            CreateSubSubOption.text = `- ${option.name} ${subSubrace}`;
+                            ElementID.appendChild(CreateSubSubOption);
+                        })
+                    }
+                })
+                }
+            }
         })
     }
     PopulateOptions('Races');
@@ -69,8 +167,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Class';
                 OccupationOption.className = 'Occupations'
-                FormGet.appendChild(OccupationOption);
-                PopulateClassOrProf('Class')
+                FormGet.appendChild(OccupationLabel);
+                FormGet.appendChild(OccupationOption); 
+                PopulateOptions('Class')
 
             }
             else{
@@ -79,9 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 OccupationLabel.className = 'Occupations'
                 OccupationOption.id = 'Profession';
                 OccupationOption.className = 'Occupations'
-                FormGet.appendChild(OccupationOption);
-                PopulateClassOrProf('Profession')
-                } 
+                FormGet.appendChild(OccupationLabel);
+                FormGet.appendChild(OccupationOption); 
+                PopulateOptions('Profession')
+                }
+            
             }
         })
     });
